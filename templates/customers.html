@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}لیست مشتریان{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">مدیریت مشتریان</h2>
+
+<a href="/customers/new" class="btn btn-success mb-3">➕ افزودن مشتری جدید</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>تلفن</th>
+            <th>آدرس</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.first_name }}</td>
+            <td>{{ customer.last_name }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.address }}</td>
+            <td>
+                <a href="/customers/edit/{{ customer.id }}" class="btn btn-warning btn-sm">ویرایش</a>
+                <a href="/customers/delete/{{ customer.id }}" class="btn btn-danger btn-sm">حذف</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if customers|length == 0 %}
+<p class="text-center text-muted">هیچ مشتری ثبت نشده است.</p>
+{% endif %}
+{% endblock %}
